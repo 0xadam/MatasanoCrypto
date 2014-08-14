@@ -1,4 +1,5 @@
 #include <string>
 
-std::string int2hex(int hexInteger);
-int hex2int(std::string hex);
+int hexCharToInt(const char hexChar);
+int hexStringToInt(const std::string hexString);
+std::string intToHexString(const int hexInteger);

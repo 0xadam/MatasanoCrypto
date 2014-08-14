@@ -14,22 +14,31 @@ static char encoding_table[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 'w', 'x', 'y', 'z', '0', '1', '2', '3',
 '4', '5', '6', '7', '8', '9', '+', '/' };
 
-string int2hex(int hexInteger)
-{
-	string hexString;
-	std::stringstream ss;
-	ss << std::hex << hexInteger;
-	ss >> hexString;
-	return hexString;
-}
-
-int hex2int(string hex)
+int hexCharToInt(const char hexChar)
 {
 	unsigned int integer;
 	std::stringstream ss;
-	ss << std::hex << hex;
+	ss << hex << hexChar;
 	ss >> integer;
 	return static_cast<int>(integer);
+}
+
+int hexStringToInt(const string hexString)
+{
+	unsigned int integer;
+	std::stringstream ss;
+	ss << hex << hexString;
+	ss >> integer;
+	return static_cast<int>(integer);
+}
+
+string intToHexString(const int hexInteger)
+{
+	string hexString;
+	std::stringstream ss;
+	ss << hex << hexInteger;
+	ss >> hexString;
+	return hexString;
 }
 
 string hex2base64(string hex)
@@ -52,7 +61,7 @@ string hex2base64(string hex)
 	{
 		//convert the first 6 characters (24 bits) to hex
 		string hexChars = hex.substr(i, 6);
-		long binary = hex2int(hexChars);
+		long binary = hexStringToInt(hexChars);
 		int padding = 24 - hexChars.length() * 4;
 		//binary = binary << 12 + (6 - ((numberOfBits) % 6)); //convert to number of bits, work out how many are left over, and pad to 6-leftOver.
 		binary = binary << padding; //convert to number of bits, work out how many are left over, and pad to 6-leftOver.
