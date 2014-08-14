@@ -1,7 +1,6 @@
 #include <string>
 #include <iostream>
-#include <sstream>
-#include <cctype>
+#include "hex.h"
 
 using namespace std;
 
@@ -13,33 +12,6 @@ static char encoding_table[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
 'w', 'x', 'y', 'z', '0', '1', '2', '3',
 '4', '5', '6', '7', '8', '9', '+', '/' };
-
-int hexCharToInt(const char hexChar)
-{
-	unsigned int integer;
-	std::stringstream ss;
-	ss << hex << hexChar;
-	ss >> integer;
-	return static_cast<int>(integer);
-}
-
-int hexStringToInt(const string hexString)
-{
-	unsigned int integer;
-	std::stringstream ss;
-	ss << hex << hexString;
-	ss >> integer;
-	return static_cast<int>(integer);
-}
-
-string intToHexString(const int hexInteger)
-{
-	string hexString;
-	std::stringstream ss;
-	ss << hex << hexInteger;
-	ss >> hexString;
-	return hexString;
-}
 
 string hex2base64(string hex)
 {
