@@ -19,7 +19,7 @@ string xorHexString(string a, string b)
 	return result;
 }
 
-int main ()
+int mainTest()
 {
 	cout << xorHexString("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965") << endl;
 	return 0;
