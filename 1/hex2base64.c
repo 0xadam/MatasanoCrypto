@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
-#include "hex.h"
+#include <sstream>
+#include <cctype>
 
 using namespace std;
 
@@ -13,7 +14,16 @@ static char encoding_table[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 'w', 'x', 'y', 'z', '0', '1', '2', '3',
 '4', '5', '6', '7', '8', '9', '+', '/' };
 
-string hexToBase64(string hex)
+int hex2int(string hex)
+{
+	unsigned int integer;
+	std::stringstream ss;
+	ss << std::hex << hex;
+	ss >> integer;
+	return static_cast<int>(integer);
+}
+
+string hex2base64(string hex)
 {
 	int hexLength = hex.length();
 	for (int i = 0; i < hexLength; i++)
@@ -33,7 +43,7 @@ string hexToBase64(string hex)
 	{
 		//convert the first 6 characters (24 bits) to hex
 		string hexChars = hex.substr(i, 6);
-		long binary = hexStringToInt(hexChars);
+		long binary = hex2int(hexChars);
 		int padding = 24 - hexChars.length() * 4;
 		//binary = binary << 12 + (6 - ((numberOfBits) % 6)); //convert to number of bits, work out how many are left over, and pad to 6-leftOver.
 		binary = binary << padding; //convert to number of bits, work out how many are left over, and pad to 6-leftOver.
@@ -58,7 +68,7 @@ string hexToBase64(string hex)
 
 int main(int argc, char *argv[])
 {
-	string base64 = hexToBase64("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d");
+	string base64 = hex2base64("49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d");
 	cout << "The reference base64 encoded hex is: " << base64 << endl;
 	if (argc > 1)
 	{
