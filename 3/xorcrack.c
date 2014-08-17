@@ -6,6 +6,16 @@
 
 using namespace std;
 
+bool isPrintable(string text)
+{
+	for (int i = 0; i < text.length(); i++)
+	{
+		if (!isprint(text[i]))
+			return false;
+	}
+	return true;
+}
+
 int main()
 {
 	//convert string from hex encoded to normal
@@ -21,8 +31,11 @@ int main()
 		{
 			key+=intToHexString(i);
 		}
+		string plaintext = hexToAscii(xorHexString(crackMe,key));
+		if (!isPrintable(plaintext))
+			continue;
 		//cout <<"Key: " << key << endl; 
 		cout << "For the character \"" << char(i) << "\" the string is:\"";
-		cout << hexToAscii(xorHexString(crackMe,key)) << "\"" << endl;
+		cout << plaintext << "\"" << endl;
 	}
 }
